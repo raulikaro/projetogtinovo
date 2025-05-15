@@ -1,13 +1,12 @@
 <?php
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function() {
+    return view('inicio');
+})->name('inicio');
 
 Route::get('/criar-conta', function () {
     return view('criar-conta');
