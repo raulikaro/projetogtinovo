@@ -50,3 +50,7 @@ Route::post('/logar', function (Request $request) {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
+
+Route::get('/cadastro-equipe', function () {
+    return view('cadastro-equipe');
+})->name('cadastro-equipe');
