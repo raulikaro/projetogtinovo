@@ -53,4 +53,31 @@ Route::get('/dashboard', function () {
 
 Route::get('/cadastro-equipe', function () {
     return view('cadastro-equipe');
-})->name('cadastro-equipe');
+})->name('cadastro-equipe')->middleware('auth');
+
+Route::get('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->regenerate();
+    return redirect()->rout('/');
+})->name('logout'); 
+
+Route::post('/logar', function (Request $request) {
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        return redirect()->intended('dashboard');
+    }
+
+    return back()->withErrors([
+        'email' => 'O email e senha digitados não são válidos',
+    ])->onlyInput('email');
+})->name('logar');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard')->middleware('auth');
